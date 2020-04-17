@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
 
 public class DashBoardPage {
 
@@ -15,19 +16,34 @@ public class DashBoardPage {
 	public DashBoardPage(WebDriver driver) {
 
 		this.driver = driver;
+
 	}
 
-	By market = By.id("MP_link");
+	/*
+	 * By market = By.id("MP_link");
+	 * 
+	 * By welcome = By.id("welcome");
+	 * 
+	 * By welcomeMenu = By.xpath("//*[@id='welcome-menu']/ul/li/a");
+	 * 
+	 * By container = By.xpath("//*[@class='quickLaungeContainer']//tr//span");
+	 */
 
-	By welcome = By.id("welcome");
+	@FindBy(id = "MP_link")
+	WebElement market;
 
-	By welcomeMenu = By.xpath("//*[@id='welcome-menu']/ul/li/a");
+	@FindBy(id = "welcome")
+	WebElement welcome;
 
-	By container = By.xpath("//*[@class='quickLaungeContainer']//tr//span");
+	@FindBy(how = How.XPATH, using = "//*[@id='welcome-menu']/ul/li/a")
+	List<WebElement> welcomeMenu;
+
+	@FindBy(how = How.XPATH, using = "//*[@class='quickLaungeContainer']//tr//span")
+	List<WebElement> container;
 
 	public void validateTextMarket(String text) {
 
-		String lab = driver.findElement(market).getAttribute("value");
+		String lab = market.getAttribute("value");
 
 		if (lab.equals(text)) {
 
@@ -44,7 +60,7 @@ public class DashBoardPage {
 
 	public void validateTextWelcome(String text) {
 
-		String lab = driver.findElement(welcome).getText();
+		String lab = welcome.getText();
 
 		if (lab.equals(text)) {
 
@@ -60,12 +76,12 @@ public class DashBoardPage {
 
 	public void clickWelcome() {
 
-		driver.findElement(welcome).click();
+		welcome.click();
 	}
 
 	public void dDnWelcomeMenu() {
 
-		List<WebElement> elements = driver.findElements(welcomeMenu);
+		List<WebElement> elements = welcomeMenu;
 
 		List<String> expected = new ArrayList<String>(Arrays.asList("About", "Logout"));
 
@@ -92,7 +108,7 @@ public class DashBoardPage {
 
 	public void validateLanguageContainer() {
 
-		List<WebElement> elements = driver.findElements(container);
+		List<WebElement> elements = container;
 
 		List<String> actual = new ArrayList<String>();
 

@@ -1,7 +1,10 @@
 package com.webapp.pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage {
 
@@ -10,39 +13,45 @@ public class LoginPage {
 	public LoginPage(WebDriver driver) {
 
 		this.driver = driver;
+
 	}
 
-	By uName = By.id("txtUsername");
+	@FindBy(id = "txtUsername")
+	WebElement uName;
 
-	By pwd = By.id("txtPassword");
+	@FindBy(id = "txtPassword")
+	WebElement pwd;
 
-	By login = By.name("Submit");
+	@FindBy(name = "Submit")
+	WebElement login;
 
-	By header = By.id("logInPanelHeading");
+	@FindBy(how = How.ID, using = "logInPanelHeading")
+	WebElement header;
 
-	By forgot = By.xpath("//*[text()='Forgot your password?']");
+	@FindBy(how = How.XPATH, using = "//*[text()='Forgot your password?']")
+	WebElement forgot;
 
 	public void enterUsername(String user_name) {
 
-		driver.findElement(uName).sendKeys(user_name);
+		uName.sendKeys(user_name);
 
 	}
 
 	public void enterPassword(String pass_word) {
 
-		driver.findElement(pwd).sendKeys(pass_word);
+		pwd.sendKeys(pass_word);
 
 	}
 
 	public void clickSubmit() {
 
-		driver.findElement(login).click();
+		login.click();
 
 	}
 
 	public void getHeaderTitle(String head) {
 
-		String lab = driver.findElement(header).getText();
+		String lab = header.getText();
 
 		if (lab.equals(head)) {
 
@@ -58,7 +67,7 @@ public class LoginPage {
 
 	public void validateLinkForgot(String tag) {
 
-		String link = driver.findElement(forgot).getTagName();
+		String link = forgot.getTagName();
 
 		if (tag.equals(link)) {
 

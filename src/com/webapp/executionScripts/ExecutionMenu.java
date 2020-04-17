@@ -4,15 +4,13 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.PageFactory;
 
 import com.webapp.pages.DashBoardPage;
 import com.webapp.pages.LoginPage;
 
 public class ExecutionMenu {
 
-	
-	// Plain POM
-	
 	public static void main(String[] args) {
 
 		System.setProperty("webdriver.chrome.driver", "./driver/chromedriver.exe");
@@ -27,7 +25,7 @@ public class ExecutionMenu {
 
 		driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
 
-		LoginPage login = new LoginPage(driver);
+		LoginPage login = PageFactory.initElements(driver, LoginPage.class);
 
 		login.getHeaderTitle("LOGIN Panel");
 
@@ -39,10 +37,10 @@ public class ExecutionMenu {
 
 		login.clickSubmit();
 
-		DashBoardPage board = new DashBoardPage(driver);
-
+		DashBoardPage board = PageFactory.initElements(driver, DashBoardPage.class);
+		
 		board.validateTextMarket("Marketplace");
-
+		
 		board.validateTextWelcome("Welcome Admin");
 
 		board.clickWelcome();
